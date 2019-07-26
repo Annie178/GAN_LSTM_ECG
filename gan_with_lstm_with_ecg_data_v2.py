@@ -448,7 +448,7 @@ tanh_layer = False
 
 minibatch_out = [0,3,5,8,10]
 for minibatch_layer in minibatch_out:
-  path = "./"+str(minibatch_layer)
+  path = "./Run_"+str(minibatch_layer)
   os.mkdir(path)
 
   dict = {'data' : source_filename, 
