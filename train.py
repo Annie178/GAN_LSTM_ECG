@@ -29,19 +29,19 @@ from mmd import pdist, MMDStatistic,  pairwisedistances
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 #Loading in training data
-source_filename = 'mitbih_train.csv'
-ECG_data = GetECGData(source_file = source_filename)
+source_filename = './mitbih_train.csv'
+ECG_data = GetECGData(source_file = source_filename,class_id = 0)
 
-sample_size = 50
+sample_size = 119
 data_loader = torch.utils.data.DataLoader(ECG_data, batch_size=sample_size, shuffle=True)
 # Num batches
 num_batches = len(data_loader)
 
 #Get Test Data
-test_filename =  'mitbih_test.csv'
+test_filename =  './mitbih_test.csv'
 
-data_test = GetECGData(source_file = test_filename)
-data_loader_test = torch.utils.data.DataLoader(data_test, batch_size=sample_size, shuffle=True)
+data_test = GetECGData(source_file = test_filename,class_id = 0)
+data_loader_test = torch.utils.data.DataLoader(sine_data_test[:18088], batch_size=sample_size, shuffle=True)
 
 #Defining parameters
 seq_length = sine_data[0].size()[0] #Number of features
@@ -61,7 +61,7 @@ tanh_layer = False
 #Looping over possible number of minibatch outputs
 minibatch_out = [0,3,5,8,10]
 for minibatch_layer in minibatch_out:
-  path = "./Run_"+str(minibatch_out)
+  path = "./Run_"+str(minibatch_layer)
   os.mkdir(path)
 
   dict = {'data' : source_filename, 
